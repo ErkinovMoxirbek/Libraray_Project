@@ -1,22 +1,12 @@
 package org.example.Repository;
 
-import org.example.DB.Database;
 import org.example.DTO.Book;
-import org.example.Enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 @Repository
 public class BookRepository {
     @Autowired
