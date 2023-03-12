@@ -3,11 +3,12 @@ package org.example.Repository;
 import org.example.DB.Database;
 import org.example.DTO.User;
 import org.example.Enums.Role;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-
+@Repository
 public class UserRepository {
     public void save(User user) {
         try {
