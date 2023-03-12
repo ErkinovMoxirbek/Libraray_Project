@@ -10,15 +10,14 @@ import java.util.List;
 public class UserRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public void save(User user) {
-        String sql = "insert into users (id, name, surname,phone, pswd,createdDate,role , visible) values (%s,'%s','%s','%s',now(),%s,%s)";
-        sql = String.format(sql, user.getId(), user.getName(),user.getSurname(),user.getPhone(),user.getRole(),user.isVisible());
-        int n = jdbcTemplate.update(sql);
-        System.out.println(n);
+    public int save(User user) {
+        String sql = "insert into users ( name, surname,phone, pswd,created_date,role , visible) values ('%s','%s','%s','%s',now(),'%s',%s)";
+        sql = String.format(sql, user.getName(),user.getSurname(),user.getPhone(),user.getPswd(),user.getRole(),user.isVisible());
+        return jdbcTemplate.update(sql);
     }
     public void updateLesson(Integer userId, User user) {
-        String sql = "Update users set id =%d, name ='%s', surname ='%s',phone ='%s',pswd = '%s',createdDate ='%s',role ='%s', visible =%s  where id = %d";
-        sql = String.format(sql, user.getId(),user.getName(),user.getSurname(),user.getPhone(),user.getPswd(), user.getCreatedDate(),user.isVisible(), userId);
+        String sql = "Update users set id =%d, name ='%s', surname ='%s',phone ='%s',pswd = '%s',created_date ='%s',role ='%s', visible =%s  where id = %d";
+        sql = String.format(sql, user.getId(),user.getName(),user.getSurname(),user.getPhone(),user.getPswd(), user.getCreatedDate(),user.getRole(),user.isVisible(), userId);
         int n = jdbcTemplate.update(sql);
         System.out.println(n);
     }
@@ -28,7 +27,7 @@ public class UserRepository {
         return userList;
     }
     public int deleteUser(Integer id) {
-        String sql = String.format("delete from user where id = '%s'", id);
+        String sql = String.format("delete from users where id = %d", id);
         return jdbcTemplate.update(sql);
     }
     public User getUserById(Integer id) {
