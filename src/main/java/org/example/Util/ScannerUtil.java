@@ -16,6 +16,19 @@ public class ScannerUtil {
         }
 
     }
+    public static String getPhoneNumber(){
+        System.out.println("Enter 0 to exit.");
+        System.out.print("or Enter Phone :");
+        String phone = ScannerUtil.scannerStr.nextLine();
+        if (phone.length() == 13 && phone.startsWith("+998")) return phone;
+        return null;
+    }
+    public static String getPassword(){
+        System.out.println("Enter 0 to exit.");
+        System.out.print("or Enter Password :");
+        return ScannerUtil.scannerStr.nextLine();
+    }
+
     public static Scanner scannerInt = new Scanner(System.in);
     public static Scanner scannerStr = new Scanner(System.in);
 }

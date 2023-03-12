@@ -12,6 +12,10 @@ import org.springframework.stereotype.Controller;
 public class MainController {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private StudentController studentController;
+    @Autowired
+    private AdminController adminController;
     public void start(){
         boolean status = true;
         while (status){
@@ -33,19 +37,14 @@ public class MainController {
     }
     public void login(){
         User user = new User();
-        System.out.println("Enter 0 to exit.");
-        System.out.print("or Enter Phone :");
-        String phone = ScannerUtil.scannerStr.nextLine();
-        user = userRepository.getUserByPhone(phone);
-        if (!phone.equals("0") && user != null){
-            System.out.println("Enter 0 to exit.");
-            System.out.print("or Enter Password :");
-            String pswd = ScannerUtil.scannerStr.nextLine();
+        user = userRepository.getUserByPhone(ScannerUtil.getPhoneNumber());
+        if (user != null){
+            String pswd = ScannerUtil.getPassword();
             if (user.getPswd().equals(pswd)){
                 if (user.getRole().equals(Role.STUDENT)){
-
+                    studentController.menu(user);
                 } else if (user.getRole().equals(Role.ADMIN)) {
-
+                    adminController.menu(user);
                 }
             }
             else {

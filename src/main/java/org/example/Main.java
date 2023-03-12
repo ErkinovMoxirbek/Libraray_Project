@@ -1,12 +1,12 @@
 package org.example;
 
 import org.example.Controller.MainController;
+import org.example.Repository.BookRepository;
+import org.example.Repository.UserRepository;
 import org.example.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
+
 public class Main {
 
 
@@ -14,6 +14,10 @@ public class Main {
         ApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         MainController mainController = (MainController) context.getBean("mainController");
         mainController.start();
+//        UserRepository userRepository = (UserRepository) context.getBean("userRepository");
+//        BookRepository bookRepository = (BookRepository) context.getBean("bookRepository");
+//        bookRepository.initTable();
+
     }
 
 }

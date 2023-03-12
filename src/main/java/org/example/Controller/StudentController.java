@@ -1,6 +1,7 @@
 package org.example.Controller;
 
 import org.example.DTO.Book;
+import org.example.DTO.User;
 import org.example.Repository.BookRepository;
 import org.example.Util.ScannerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private BookRepository bookRepository;
-    public void menu(){
+    public void menu(User user){
         boolean status = true;
         while (status){
             System.out.println("""
@@ -40,30 +41,34 @@ public class StudentController {
             }
         }
     }
-
-    private void orderBook() {
-        ///
-    }
-
-    private void history() {
-        ///
-    }
-
-    private void returnBook() {
-        
-    }
-
-    private void takenBook() {
-
-    }
-    private void takeBook() {
-        
-    }
-
     private void bookList() {
-        List<Book> bookList = bookRepository.getList();
+        List<Book> bookList = bookRepository.getBookList();
         for(Book b : bookList){
             System.out.println(b.toString());
         }
     }
+    private void takeBook() {
+
+    }
+    private void takenBook() {
+
+    }
+    private void returnBook() {
+
+    }
+    private void history() {
+        ///
+    }
+    private void orderBook() {
+        ///
+    }
+
+
+
+
+
+
+
+
+
 }

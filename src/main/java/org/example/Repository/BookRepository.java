@@ -11,11 +11,10 @@ import java.util.List;
 public class BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    public void save(Book book) {
-        String sql = "insert into lesson (id,title,author,publishYear,amount,visible) values (%s,'%s','%s',now(),%s,%s)";
-        sql = String.format(sql, book.getId(), book.getTitle(),book.getAuthor(),book.getAmount(),book.isVisible());
-        int n = jdbcTemplate.update(sql);
-        System.out.println(n);
+    public int save(Book book) {
+        String sql = "insert into book (title,author,publishYear,amount,visible) values ('%s','%s',now(),%s,%s)";
+        sql = String.format(sql,  book.getTitle(),book.getAuthor(),book.getAmount(),book.isVisible());
+        return jdbcTemplate.update(sql);
     }
     public void updateLesson(Integer bookId, Book book) {
         String sql = "Update book set id =%d, title ='%s', author ='%s',publishYear ='%s',amount =%s, visible =%s  where id = %d";
@@ -39,5 +38,25 @@ public class BookRepository {
             return list.get(0);
         }
         return null;
+    }
+    public void initTable(){
+        String book = "drop table book cascade ;create table if not exists book (" +
+                "id serial primary key," +
+                "title varchar not null," +
+                "author varchar not null," +
+                "publishYear date not null," +
+                "amount numeric," +
+                "visible boolean default true)";
+        String student_book = "create table if not exists student_book (" +
+                "id serial primary key," +
+                "created_date timestamp," +
+                "status varchar default 'TAKEN'," +
+                "returned_date timestamp," +
+                "duration date," +
+                "student_id integer," +
+                "book_id integer," +
+                "foreign key (student_id) references student(id)," +
+                "foreign key (book_id) references book(id))";
+        jdbcTemplate.update(book);
     }
 }
