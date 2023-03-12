@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Scanner;
 
 @Service
 public class AdminService {
@@ -27,12 +28,13 @@ public class AdminService {
         System.out.print("Enter amount : ");
         book.setAmount(ScannerUtil.scannerInt.nextDouble());
         book.setVisible(true);
-        int n = bookRepository.save(book);
-        if (n == 1) System.out.println("successfully!");
-        else System.out.println("failed!");
+        getResult(bookRepository.save(book));
     }
 
     public void DeleteBook() {
+        System.out.print("Enter Id : ");
+        Integer id = ScannerUtil.scannerInt.nextInt();
+        getResult(bookRepository.deleteBook(id));
     }
 
     public void StudentList() {
@@ -48,5 +50,9 @@ public class AdminService {
     }
 
     public void BookTakenHistory() {
+    }
+    public void getResult(int n){
+        if (n == 1) System.out.println("successfully!");
+        else System.out.println("failed!");
     }
 }
