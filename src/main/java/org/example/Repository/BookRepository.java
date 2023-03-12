@@ -12,7 +12,7 @@ public class BookRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public void save(Book book) {
-        String sql = "insert into lesson (id,title,author,publishYear,amount,visible) values ('%s','%s','%s',now(),'%s','%s')";
+        String sql = "insert into lesson (id,title,author,publishYear,amount,visible) values (%s,'%s','%s',now(),%s,%s)";
         sql = String.format(sql, book.getId(), book.getTitle(),book.getAuthor(),book.getAmount(),book.isVisible());
         int n = jdbcTemplate.update(sql);
         System.out.println(n);
