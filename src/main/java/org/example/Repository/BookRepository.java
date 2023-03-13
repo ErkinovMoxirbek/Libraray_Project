@@ -16,7 +16,7 @@ public class BookRepository {
         sql = String.format(sql,  book.getTitle(),book.getAuthor(),book.getAmount(),book.isVisible());
         return jdbcTemplate.update(sql);
     }
-    public void updateLesson(Integer bookId, Book book) {
+    public void updateBook(Integer bookId, Book book) {
         String sql = "Update book set id =%d, title ='%s', author ='%s',publishYear ='%s',amount =%s, visible =%s  where id = %d";
         sql = String.format(sql, book.getId(),book.getTitle(),book.getAuthor(),book.getPublishYear(), book.getAmount(),book.isVisible(), bookId);
         int n = jdbcTemplate.update(sql);
@@ -47,16 +47,6 @@ public class BookRepository {
                 "publishYear date not null," +
                 "amount numeric," +
                 "visible boolean default true)";
-        String student_book = "create table if not exists student_book (" +
-                "id serial primary key," +
-                "created_date timestamp," +
-                "status varchar default 'TAKEN'," +
-                "returned_date timestamp," +
-                "duration date," +
-                "student_id integer," +
-                "book_id integer," +
-                "foreign key (student_id) references student(id)," +
-                "foreign key (book_id) references book(id))";
         jdbcTemplate.update(book);
     }
 }

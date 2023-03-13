@@ -3,6 +3,7 @@ package org.example.Controller;
 import org.example.DTO.Book;
 import org.example.DTO.User;
 import org.example.Repository.BookRepository;
+import org.example.Service.StudentService;
 import org.example.Util.ScannerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class StudentController {
     @Autowired
-    private BookRepository bookRepository;
+    private StudentService studentService;
     public void menu(User user){
         boolean status = true;
         while (status){
@@ -28,12 +29,12 @@ public class StudentController {
                     0. Exit;
                     """);
             switch (ScannerUtil.getAction()){
-                case 1 ->bookList();
-                case 2 ->takeBook();
-                case 3 ->takenBook();
-                case 4 ->returnBook();
-                case 5 ->history();
-                case 6 ->orderBook();
+                case 1 ->studentService.bookList();
+                case 2 ->studentService.takeBook(user);
+                case 3 ->studentService.takenBook();
+                case 4 ->studentService.returnBook();
+                case 5 ->studentService.history();
+                case 6 ->studentService.orderBook();
                 case 0 -> {
                     System.out.println("Exited!");
                     status = false;
@@ -41,30 +42,6 @@ public class StudentController {
             }
         }
     }
-    private void bookList() {
-        List<Book> bookList = bookRepository.getBookList();
-        for(Book b : bookList){
-            System.out.println(b.toString());
-        }
-    }
-    private void takeBook() {
-
-    }
-    private void takenBook() {
-
-    }
-    private void returnBook() {
-
-    }
-    private void history() {
-        ///
-    }
-    private void orderBook() {
-        ///
-    }
-
-
-
 
 
 

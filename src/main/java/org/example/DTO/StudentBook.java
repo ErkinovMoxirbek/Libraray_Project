@@ -4,6 +4,8 @@ import lombok.*;
 import org.example.Enums.Status;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+
 @ToString @AllArgsConstructor @NoArgsConstructor
 public class StudentBook {
     @Getter @Setter
@@ -11,7 +13,7 @@ public class StudentBook {
     @Getter @Setter
     private Integer studentId;
     @Getter @Setter
-    private String bookId;
+    private Integer bookId;
     @Getter @Setter
     private LocalDateTime createDate;
     @Getter @Setter
@@ -19,6 +21,6 @@ public class StudentBook {
     @Getter @Setter
     private LocalDateTime returnedDate;
     @Getter @Setter
-    private Integer duration;
+    private LocalDateTime duration;
 
 }
