@@ -15,7 +15,7 @@ public class StudentBook {
     @Getter @Setter
     private Integer bookId;
     @Getter @Setter
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
     @Getter @Setter
     private Status status;
     @Getter @Setter

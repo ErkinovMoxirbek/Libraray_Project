@@ -1,9 +1,12 @@
 package org.example.Service;
 
 import org.example.DTO.Book;
+import org.example.DTO.BookOrderInformation;
+import org.example.DTO.StudentBook;
 import org.example.DTO.User;
 import org.example.Enums.Role;
 import org.example.Repository.BookRepository;
+import org.example.Repository.StudentBookRepository;
 import org.example.Repository.UserRepository;
 import org.example.Util.ScannerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ public class AdminService {
     private BookRepository bookRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private StudentBookRepository studentBookRepository;
     public void BookList() {
         List<Book> bookList = bookRepository.getBookList();
         for(Book b : bookList){
@@ -31,14 +36,20 @@ public class AdminService {
         System.out.print("Enter author : ");
         book.setAuthor(ScannerUtil.scannerStr.nextLine());
         System.out.print("Enter amount : ");
-        book.setAmount(ScannerUtil.scannerInt.nextDouble());
+        book.setAmount(ScannerUtil.scannerInt.nextInt());
         book.setVisible(true);
-        getResult(bookRepository.save(book));
+        List<Book> bookList = bookRepository.getBookList();
+        for (Book b : bookList) if (b.getTitle().equals(book.getTitle()) && b.getAuthor().equals(book.getAuthor())) book.setAmount(b.getAmount() + book.getAmount());
+        getResult(bookRepository.updateBook(book.getId(),book));
     }
 
     public void DeleteBook() {
         System.out.print("Enter Id : ");
         Integer id = ScannerUtil.scannerInt.nextInt();
+        if (null != studentBookRepository.getStudentBookByBookId(id)){
+            System.out.println("Sorry, this book is still in student hands, \ncan only delete the book after the book is returned to the library!");
+            return;
+        }
         getResult(bookRepository.deleteBook(id));
     }
 
@@ -76,9 +87,17 @@ public class AdminService {
     }
 
     public void StudentTakenBook() {
+        List<BookOrderInformation> informations= studentBookRepository.getOrderInfoListByStudentId(null);
+        for (BookOrderInformation i : informations) System.out.println("Book (Order number ='" + i.getSb_id() + "', Student name ='" + i.getStudent_name() +
+                "', Student surname ='" + i.getStudent_surname() + "', Student phone ='" + i.getStudent_phone() + "', Taken date ='" + i.getTaken_time() + "' );");
     }
 
     public void BookTakenHistory() {
+        List<BookOrderInformation> informations= studentBookRepository.getHistory();
+        for (BookOrderInformation i : informations) System.out.println("Book (Order number ='" + i.getSb_id() + "', Student name ='" + i.getStudent_name() +
+                "', Student surname ='" + i.getStudent_surname() + "', Student phone ='" + i.getStudent_phone() + "', Book title ='" + i.getBook_title() +
+                "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "', Returned date ='" + i.getReturned_time() + "' );");
+
     }
     public void getResult(int n){
         if (n == 1) System.out.println("successfully!");

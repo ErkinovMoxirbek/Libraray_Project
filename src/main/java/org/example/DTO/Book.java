@@ -14,7 +14,7 @@ public class Book {
     @Getter@Setter
     private LocalDateTime publishYear;
     @Getter@Setter
-    private Double amount;
+    private Integer amount;
     @Getter@Setter
     private boolean visible;
 

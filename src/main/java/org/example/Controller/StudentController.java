@@ -31,7 +31,7 @@ public class StudentController {
             switch (ScannerUtil.getAction()){
                 case 1 ->studentService.bookList();
                 case 2 ->studentService.takeBook(user);
-                case 3 ->studentService.takenBook();
+                case 3 ->studentService.takenBook(user);
                 case 4 ->studentService.returnBook();
                 case 5 ->studentService.history();
                 case 6 ->studentService.orderBook();

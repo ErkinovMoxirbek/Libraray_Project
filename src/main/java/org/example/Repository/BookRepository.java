@@ -16,11 +16,10 @@ public class BookRepository {
         sql = String.format(sql,  book.getTitle(),book.getAuthor(),book.getAmount(),book.isVisible());
         return jdbcTemplate.update(sql);
     }
-    public void updateBook(Integer bookId, Book book) {
+    public int updateBook(Integer bookId, Book book) {
         String sql = "Update book set id =%d, title ='%s', author ='%s',publishYear ='%s',amount =%s, visible =%s  where id = %d";
         sql = String.format(sql, book.getId(),book.getTitle(),book.getAuthor(),book.getPublishYear(), book.getAmount(),book.isVisible(), bookId);
-        int n = jdbcTemplate.update(sql);
-        System.out.println(n);
+        return jdbcTemplate.update(sql);
     }
     public List<Book> getBookList() {
         String sql = "SELECT * FROM book";
