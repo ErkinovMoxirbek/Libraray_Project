@@ -25,7 +25,7 @@ public class StudentService {
         for(Book b : bookList) if (b.isVisible() && b.getAmount() > 0) System.out.println("Book ( id ='" + b.getId() + "', title ='" + b.getTitle() + "', author ='" + b.getAuthor() + "' );");
     }
     public void takeBook(User user) {
-        int count = studentBookRepository.getOrderInfoListByStudentId(user.getId()).size();
+        int count = bookRepository.getBookListByStudentIdAndStatus(user.getId(),Status.TAKEN).size();
         System.out.print("Enter Id : ");
         Book book = bookRepository.getBookById(ScannerUtil.scannerInt.nextInt());
         if (book == null){
@@ -48,10 +48,8 @@ public class StudentService {
         System.out.println("You got the book for 30 days!\n\n");
     }
     public void takenBook(User user) {
-        // OrderNumber  BookTitle  BookAuthor TakenTime
-        List<BookOrderInformation> informations = studentBookRepository.getOrderInfoListByStudentId(user.getId());
-        for (BookOrderInformation i : informations) System.out.println("Book (Order number ='" + i.getSb_id() + "', Book title ='" + i.getBook_title() +
-                "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "' );");
+        List<Book> bookList = bookRepository.getBookListByStudentIdAndStatus(user.getId(),Status.TAKEN);
+        for(Book b : bookList) System.out.println("Book ( id ='" + b.getId() + "', title ='" + b.getTitle() + "', author ='" + b.getAuthor() + "' );");
     }
     public void returnBook() {
         System.out.print("Enter Id : ");
@@ -61,6 +59,10 @@ public class StudentService {
             return;
         }
         StudentBook studentBook = studentBookRepository.getStudentBookByBookId(book.getId());
+        if (studentBook.getStatus().equals(Status.RETURNED)){
+            System.out.println("kechirasiz siz kitob kutubxona qaytargansiz");
+            return;
+        }
         studentBook.setStatus(Status.RETURNED);
         studentBook.setReturnedDate(LocalDateTime.now());
         getResult(studentBookRepository.updateStudentBook(studentBook.getId(),studentBook));
@@ -70,8 +72,7 @@ public class StudentService {
     public void history() {
         List<BookOrderInformation> informations= studentBookRepository.getHistory();
         for (BookOrderInformation i : informations) System.out.println("Book (Order number ='" + i.getSb_id() + "', Book title ='" + i.getBook_title() +
-                "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "', Returned date ='" + i.getReturned_time() + "' );");
-
+                        "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "', Returned date ='" + i.getReturned_time() + "' );");
     }
     public void orderBook() {
         ///

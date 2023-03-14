@@ -1,6 +1,7 @@
 package org.example.Repository;
 
 import org.example.DTO.Book;
+import org.example.Enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +24,16 @@ public class BookRepository {
     }
     public List<Book> getBookList() {
         String sql = "SELECT * FROM book";
+        List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
+        return bookList;
+    }
+    public List<Book> getBookListByStudentIdAndStatus(Integer id, Status status) {
+        if (status == null){
+            String sql = "SELECT * FROM book where id in (select book_id from student_book where student_id = " + id + " );" ;
+            List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
+            return bookList;
+        }
+        String sql = "SELECT * FROM book where id in (select book_id from student_book where student_id = " + id + " and status = '"+status.toString()+"' );" ;
         List<Book> bookList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class));
         return bookList;
     }

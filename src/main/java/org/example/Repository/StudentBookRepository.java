@@ -35,6 +35,7 @@ public class StudentBookRepository {
                     "inner join book as b on sb.book_id = b.id " +
                     "inner join users as s on sb.student_id = s.id" +
                     " where sb.status = '" + Status.TAKEN + "' ;";
+
             List<BookOrderInformation> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BookOrderInformation.class));
             return list;
         }
@@ -46,7 +47,7 @@ public class StudentBookRepository {
     public List<BookOrderInformation> getHistory(){
         String sql = " select sb.id as sb_id,b.id as book_id,b.title as book_title, b.author as book_author,sb.created_date as taken_time,sb.returned_date as returned_time ,s.name as student_name , s.surname as student_surname, s.phone as student_phone from student_book as sb " +
                 "inner join book as b on sb.book_id = b.id " +
-                "inner join users as s on sb.student_id = s.id";
+                "inner join users as s on sb.student_id = s.id where sb.status != 'TAKEN'";
         List<BookOrderInformation> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BookOrderInformation.class));
         return list;
     }
