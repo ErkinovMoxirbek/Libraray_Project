@@ -63,8 +63,8 @@ public class StudentBookRepository {
         }
         return null;
     }
-    public StudentBook getStudentBookByBookId(Integer id) {
-        String sql = "SELECT * FROM student_book where book_id =" + id;
+    public StudentBook getStudentBookByBookId(Integer bid,Integer sid) {
+        String sql = "SELECT * FROM student_book where book_id =" + bid + " and student_id = " + sid + ");";
         List<StudentBook> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(StudentBook.class));
         if (list.size() > 0) {
             return list.get(0);

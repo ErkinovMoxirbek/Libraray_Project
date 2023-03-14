@@ -51,16 +51,16 @@ public class StudentService {
         List<Book> bookList = bookRepository.getBookListByStudentIdAndStatus(user.getId(),Status.TAKEN);
         for(Book b : bookList) System.out.println("Book ( id ='" + b.getId() + "', title ='" + b.getTitle() + "', author ='" + b.getAuthor() + "' );");
     }
-    public void returnBook() {
+    public void returnBook(User user) {
         System.out.print("Enter Id : ");
         Book book = bookRepository.getBookById(ScannerUtil.scannerInt.nextInt());
         if (book == null){
             System.out.println("Sorry, the book you were looking for does not exist. \nPlease, try again");
             return;
         }
-        StudentBook studentBook = studentBookRepository.getStudentBookByBookId(book.getId());
+        StudentBook studentBook = studentBookRepository.getStudentBookByBookId(book.getId(), user.getId());
         if (studentBook.getStatus().equals(Status.RETURNED)){
-            System.out.println("kechirasiz siz kitob kutubxona qaytargansiz");
+            System.out.println("Sorry, you didn't return the book to the library");
             return;
         }
         studentBook.setStatus(Status.RETURNED);

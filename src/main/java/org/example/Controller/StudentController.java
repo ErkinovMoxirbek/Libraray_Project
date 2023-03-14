@@ -28,7 +28,7 @@ public class StudentController {
                 case 1 ->studentService.bookList();
                 case 2 ->studentService.takeBook(user);
                 case 3 ->studentService.takenBook(user);
-                case 4 ->studentService.returnBook();
+                case 4 ->studentService.returnBook(user);
                 case 5 ->studentService.history();
                 case 6 ->studentService.appeal(user);
                 case 0 -> {

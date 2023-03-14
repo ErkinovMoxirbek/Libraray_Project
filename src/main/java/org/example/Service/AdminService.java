@@ -46,7 +46,7 @@ public class AdminService {
     public void DeleteBook() {
         System.out.print("Enter Id : ");
         Integer id = ScannerUtil.scannerInt.nextInt();
-        if (null != studentBookRepository.getStudentBookByBookId(id)){
+        if (null != studentBookRepository.getStudentBookById(id)){
             System.out.println("Sorry, this book is still in student hands, \ncan only delete the book after the book is returned to the library!");
             return;
         }
