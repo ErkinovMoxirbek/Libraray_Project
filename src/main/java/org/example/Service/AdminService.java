@@ -1,10 +1,8 @@
 package org.example.Service;
 
-import org.example.DTO.Book;
-import org.example.DTO.BookOrderInformation;
-import org.example.DTO.StudentBook;
-import org.example.DTO.User;
+import org.example.DTO.*;
 import org.example.Enums.Role;
+import org.example.Repository.AppealRepository;
 import org.example.Repository.BookRepository;
 import org.example.Repository.StudentBookRepository;
 import org.example.Repository.UserRepository;
@@ -23,6 +21,8 @@ public class AdminService {
     private UserRepository userRepository;
     @Autowired
     private StudentBookRepository studentBookRepository;
+    @Autowired
+    private AppealRepository appealRepository;
     public void BookList() {
         List<Book> bookList = bookRepository.getBookList();
         for(Book b : bookList){
@@ -98,6 +98,12 @@ public class AdminService {
                 "', Student surname ='" + i.getStudent_surname() + "', Student phone ='" + i.getStudent_phone() + "', Book title ='" + i.getBook_title() +
                 "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "', Returned date ='" + i.getReturned_time() + "' );");
 
+    }
+
+
+    public void studentAppeal() {
+        List<StudentAppeal> list = appealRepository.getList();
+        for (StudentAppeal s : list) System.out.println(s);
     }
     public void getResult(int n){
         if (n == 1) System.out.println("successfully!");

@@ -1,10 +1,8 @@
 package org.example.Service;
 
-import org.example.DTO.Book;
-import org.example.DTO.BookOrderInformation;
-import org.example.DTO.StudentBook;
-import org.example.DTO.User;
+import org.example.DTO.*;
 import org.example.Enums.Status;
+import org.example.Repository.AppealRepository;
 import org.example.Repository.BookRepository;
 import org.example.Repository.StudentBookRepository;
 import org.example.Util.ScannerUtil;
@@ -20,6 +18,8 @@ public class StudentService {
     public BookRepository bookRepository;
     @Autowired
     private StudentBookRepository studentBookRepository;
+    @Autowired
+    private AppealRepository appealRepository;
     public void bookList() {
         List<Book> bookList = bookRepository.getBookList();
         for(Book b : bookList) if (b.isVisible() && b.getAmount() > 0) System.out.println("Book ( id ='" + b.getId() + "', title ='" + b.getTitle() + "', author ='" + b.getAuthor() + "' );");
@@ -74,8 +74,13 @@ public class StudentService {
         for (BookOrderInformation i : informations) System.out.println("Book (Order number ='" + i.getSb_id() + "', Book title ='" + i.getBook_title() +
                         "', Book author ='" + i.getBook_author() + "', Taken date ='" + i.getTaken_time() + "', Returned date ='" + i.getReturned_time() + "' );");
     }
-    public void orderBook() {
-        ///
+    public void appeal(User user) {
+        StudentAppeal studentAppeal = new StudentAppeal();
+        System.out.print("Enter appeal : ");
+        String text = ScannerUtil.scannerStr.nextLine();
+        studentAppeal.setAppeal_text(text.replace('\'','`'));
+        studentAppeal.setStudent_id(user.getId());
+        getResult(appealRepository.save(studentAppeal));
     }
 
     public void getResult(int n){

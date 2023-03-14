@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.Controller.MainController;
+import org.example.Repository.AppealRepository;
 import org.example.Repository.BookRepository;
 import org.example.Repository.UserRepository;
 import org.example.config.Config;
@@ -19,7 +20,8 @@ public class Main {
 //        UserRepository userRepository = (UserRepository) context.getBean("userRepository");
 //        BookRepository bookRepository = (BookRepository) context.getBean("bookRepository");
 //        bookRepository.initTable();
-
+//        AppealRepository appealRepository = (AppealRepository) context.getBean("appealRepository");
+//        appealRepository.initTable();
     }
 
 }

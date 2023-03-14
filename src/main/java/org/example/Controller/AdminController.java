@@ -27,6 +27,7 @@ public class AdminController {
                     6. Delete student;
                     7. Student Taken book;
                     8. BookTaken History;
+                    9. Student's appeal;
                     0. Exit;
                     """);
             switch (ScannerUtil.getAction()){
@@ -38,6 +39,7 @@ public class AdminController {
                 case 6 -> adminService.DeleteStudent();
                 case 7 -> adminService.StudentTakenBook();
                 case 8 -> adminService.BookTakenHistory();
+                case 9 -> adminService.studentAppeal();
                 case 0 -> {
                     System.out.println("Exited!");
                     status = false;

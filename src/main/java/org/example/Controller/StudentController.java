@@ -1,14 +1,10 @@
 package org.example.Controller;
 
-import org.example.DTO.Book;
 import org.example.DTO.User;
-import org.example.Repository.BookRepository;
 import org.example.Service.StudentService;
 import org.example.Util.ScannerUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 @Controller
 
@@ -25,7 +21,7 @@ public class StudentController {
                     3. Taken book;
                     4. Return book;
                     5. History;
-                    6. Order book;
+                    6. Appeal;
                     0. Exit;
                     """);
             switch (ScannerUtil.getAction()){
@@ -34,7 +30,7 @@ public class StudentController {
                 case 3 ->studentService.takenBook(user);
                 case 4 ->studentService.returnBook();
                 case 5 ->studentService.history();
-                case 6 ->studentService.orderBook();
+                case 6 ->studentService.appeal(user);
                 case 0 -> {
                     System.out.println("Exited!");
                     status = false;
