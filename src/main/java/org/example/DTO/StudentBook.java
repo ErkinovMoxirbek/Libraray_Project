@@ -3,24 +3,25 @@ package org.example.DTO;
 import lombok.*;
 import org.example.Enums.Status;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 @ToString @AllArgsConstructor @NoArgsConstructor
+@Getter @Setter
+@Entity
 public class StudentBook {
-    @Getter @Setter
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Getter @Setter
+    @Column (name = "student_id")
     private Integer studentId;
-    @Getter @Setter
+    @Column(name = "book_id")
     private Integer bookId;
-    @Getter @Setter
+    @Column (name = "created_date")
     private LocalDateTime createdDate;
-    @Getter @Setter
     private Status status;
-    @Getter @Setter
+    @Column (name = "returned_date")
     private LocalDateTime returnedDate;
-    @Getter @Setter
     private LocalDateTime duration;
 
 }

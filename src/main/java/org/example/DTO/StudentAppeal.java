@@ -2,16 +2,19 @@ package org.example.DTO;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @ToString@AllArgsConstructor@NoArgsConstructor
+@Getter @Setter
+@Entity
 public class StudentAppeal {
-    @Getter @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Getter @Setter
     private Integer student_id;
-    @Getter @Setter
     private String appeal_text;
-    @Getter @Setter
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
+
 }

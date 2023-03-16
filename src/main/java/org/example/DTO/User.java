@@ -3,25 +3,22 @@ package org.example.DTO;
 import lombok.*;
 import org.example.Enums.Role;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
+@Entity
 public class User {
-    @Getter @Setter
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String surname;
-    @Getter @Setter
     private String phone;
-    @Getter @Setter
     private String pswd;
-    @Getter @Setter
+    @Column (name = "created_date")
     private LocalDateTime createdDate;
-    @Getter @Setter
     private boolean visible;
-    @Getter @Setter
     private Role role ;
 }

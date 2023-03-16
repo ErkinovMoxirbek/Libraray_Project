@@ -2,20 +2,19 @@ package org.example.DTO;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 @ToString@AllArgsConstructor@NoArgsConstructor
+@Getter@Setter
+@Entity
 public class Book {
-    @Getter@Setter
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Getter@Setter
     private String title;
-    @Getter@Setter
     private String author;
-    @Getter@Setter
+    @Column (name = "publish_year")
     private LocalDateTime publishYear;
-    @Getter@Setter
     private Integer amount;
-    @Getter@Setter
     private boolean visible;
 
 }

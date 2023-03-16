@@ -2,28 +2,27 @@ package org.example.DTO;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
+@Entity
 public class BookOrderInformation {
-    @Getter @Setter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer sb_id;
-    @Getter @Setter
     private Integer book_id;
-    @Getter @Setter
     private String book_title;
-    @Getter @Setter
     private String book_author;
-    @Getter @Setter
     private LocalDateTime taken_time;
-    @Getter @Setter
     private LocalDateTime returned_time;
-    @Getter @Setter
     private String student_name;
-    @Getter @Setter
     private String student_surname;
-    @Getter @Setter
     private String student_phone;
 
 
